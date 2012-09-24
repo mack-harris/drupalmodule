@@ -1,0 +1,3 @@
+name = Hello World
+description = This module will create a block with the text "Hello World!"
+core = 7.x
