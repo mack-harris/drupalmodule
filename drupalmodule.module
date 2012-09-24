@@ -1,1 +1,15 @@
 <?php
+
+function hook_block_info() {
+	 $blocks ['syndicate'] = array(
+	 	 'info' => t('Syndicate'),
+		 'cache' => DRUPAL_NO_CACHE,
+		 );
+
+		 $blocks ['recent'] = array(
+		 	 'info => t('Recent content'),
+			);
+	
+	return $blocks;
+}
+
