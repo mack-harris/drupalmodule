@@ -1,12 +1,12 @@
 <?php
 
-function hook_block_info() {
-	 $blocks ['drupalmodule'] = array(
-	 	 'info' => t('Hello World!')
-		 );
 
+
+function drupalmodule_block_info() {
+	 $blocks ['helloworld'] = array(
+	 	 'info' => t('Hello World!'),
+		 'cache' => DRUPAL_CACHE_PER_ROLE,
+		 );
 		 
 	return $blocks;
 }
-
-function hook_block_view(){
