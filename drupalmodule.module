@@ -11,21 +11,17 @@ function drupalmodule_block_info() {
 	return $blocks;
 }
 
-function drupalmodule_block_view($delta = '') {
+function drupalmodule_block_view($delta) {
 	 $block = array();
 
 	 switch ($delta){
-	 	case 'Hello':
+	 	case 'helloworld':
 		     $block['subject'] = t('Hello');
-		     $block['content'] = array(
-		     		       '#title' => t('Hello World!'),);
-	break;
-
-	else{
-	$block['content'] = t('No content available.');
-}
-break;
-}
-return $block;
+		     $block['content'] = t('Hello World!');
+		     break;
+	        default:
+		     break;
+	}
+       return $block;
 } 
 	 	
