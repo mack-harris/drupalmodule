@@ -95,16 +95,16 @@ function drupalmodule_block_configure($delta){
 
 //Implements hook_block_save()
 
-/*function drupalmodule_block_save($delta, $edits = array()) {
+function drupalmodule_block_save($delta, $edits = array(array())) {
 	switch($delta) {
 		case 'myquote':
-			if(isset($edits) ){
+			if(isset($edits)){
 			//this should set some global variables in the DB.
 				if(isset($edits['quotable']['q'])){
-					variable_set('deep_thoughts', $edits['q']);
+					variable_set('deep_thoughts', $edits['quotable']['q']);
 				}
 				if(isset($edits['quotable']['a'])){
-					$attribution = $edits['a'];
+					$attribution = $edits['quotable']['a'];
 					variable_set('author', $attribution);
 				}
 			}
@@ -112,7 +112,7 @@ function drupalmodule_block_configure($delta){
 		default:
 		break;
 	}
-}*/
+}
 
 
 /** function drupal_add_js('rotator.js'){
