@@ -14,7 +14,8 @@ function drupalmodule_block_view($delta) {
 
 	switch ($delta){
 		case 'Quotable':
-			$quote = variable_get('mei_core_quotable-quote');
+			$quotation1 = variable_get('mei_core_quotable-quote1');
+			$attribution1 = variable_get('mei_core_quotable-att1');
 			$block['subject'] = t('Quotable quotes');
 			$block['content'] = t($quotation1, $attribution1);
 			break;
@@ -31,7 +32,7 @@ function drupalmodule_block_configure($delta){
 			$default_text = '';
 			$form['quotation1'] = array(
 				'#type' => 'textfield',
-				'#title' => t('Quotation 1'),
+		‎		'#title' => t('Quotation 1'),
 				'#description' => t('Enter the text of your first quote.'),
 				'#size' => 100,
 				'#maxlength' => 200,
