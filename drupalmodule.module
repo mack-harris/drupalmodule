@@ -51,30 +51,37 @@ function drupalmodule_block_view($delta) {
 
 function drupalmodule_block_configure($delta) {
 	$form = array();
-	$form['#tree'] = TRUE;
-	$form['quotable'] = array(
-		'#type' => 'fieldset',
-		'#title' => t('Quotable'),
-		'#collapsible' => FALSE,
-	);
+	switch($delta){
+		case 'Quote':
+			$form['#tree'] = TRUE;
+			$form['quotable'] = array(
+				'#type' => 'fieldset',
+				'#title' => t('Quotable'),
+				'#collapsible' => FALSE,
+			);
 
-	$form['quotable']['q'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Quote'),
-		'#description' => t('Enter your quote.'),
-		'#size' => 100,
-		'#maxlength' => 200,
-		'#default_value' => variable_get('mei_core_quotable-quote'),
-	);
+			$form['quotable']['q'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Quote'),
+				'#description' => t('Enter your quote.'),
+				'#size' => 100,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-quote'),
+			);
 	
-	$form['quotable']['a'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Attribution'),
-		'#description' => t('Enter your attribution.'),
-		'#size' => 100,
-		'#maxlength' => 200,
-		'#default_value' => variable_get('mei_core_quotable-att'),
-	);
+			$form['quotable']['a'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Attribution'),
+				'#description' => t('Enter your attribution.'),
+				'#size' => 100,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-att'),
+			);
+		default:
+		break;
+	return $form;
+
+	}
 }
 	
 
