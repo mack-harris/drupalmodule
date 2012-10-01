@@ -59,7 +59,7 @@ function drupalmodule_block_configure($delta){
 				'#type' => 'fieldset',
 				'#title' => t('Quotation and attribution array'),
 				'#collapsible' => FALSE,
-				'#quote' => array(
+				$form['quote'] = array(
 					'#type' => 'textfield',
 					'#title' => t('Quote'),
 					'#description' => t('Enter your quote.'),
@@ -68,7 +68,7 @@ function drupalmodule_block_configure($delta){
 					'#default_value' => variable_get('deep_thoughts', $default_text),
 					'#required' => TRUE,
 				),
-				'#attrib' => array(
+				$form['attrib'] = array(
 					'#type' => 'textfield',
 					'#title' => t('Attribution'),
 					'#description' => t('Enter your quote.'),
