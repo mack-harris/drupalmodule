@@ -98,10 +98,8 @@ function drupalmodule_block_configure($delta){
 function drupalmodule_block_save($delta){
 	switch($delta) {
 		case 'myquote':
-			variable_set('deep_thoughts', $form['quotable']['q']),
-			variable_set('author', $form['author']['a']),
-			}
-			break;
+			variable_set('deep_thoughts', $form['quotable']['q']);
+			variable_set('author', $form['author']['a']);
 		default:
 			break;
 	}
