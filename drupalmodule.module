@@ -17,7 +17,7 @@ function drupalmodule_block_view($delta) {
 			$quotation1 = variable_get('mei_core_quotable-quote1');
 			$attribution1 = variable_get('mei_core_quotable-att1');
 			$block['subject'] = t('Quotable quotes');
-			$block['content'] = t($quotation1, $attribution1);
+			$block['content'] = t($quotation1);
 			break;
 		default:
 			break;
@@ -25,7 +25,7 @@ function drupalmodule_block_view($delta) {
 	return $block;
 }
 
-function drupalmodule_block_configure($delta){
+function drupalmodule_block_configure($delta) {
 	$form = array();
 	switch ($delta) {
 		case 'Quotable':
@@ -94,7 +94,7 @@ function drupalmodule_block_configure($delta){
 
 //Implements hook_block_save()
 
-function drupalmodule_block_save($delta, $edits = array()){
+function drupalmodule_block_save($delta, $edits = array()) {
 	if($delta == 'Quotable'){
 		if(isset($edits) ){
 		//do some validation and set global variables in the db
@@ -137,5 +137,9 @@ function drupalmodule_block_save($delta, $edits = array()){
 		}
 	}
 }
+
+function drupal_add_js('rotator.js'){
+
+
 					
 
