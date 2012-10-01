@@ -19,7 +19,7 @@ $attribution = variable_get('author');
 $block['subject'] = t('Quotable quotes');
 //Javascript goes in 'content', I would think.
 //drupal_add_js('rotator.js');
-$block['content'] = $quotation,
+$block['content'] = t($quotation);
 break;
 default:
 break;
