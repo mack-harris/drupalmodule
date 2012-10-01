@@ -69,7 +69,7 @@ function drupalmodule_block_configure($delta) {
 	
 	$form['quotable']['a'] = array(
 		'#type' => 'textfield',
-		'#title' => t('Attribution')
+		'#title' => t('Attribution'),
 		'#description' => t('Enter your attribution.'),
 		'#size' => 100,
 		'#maxlength' => 200,
