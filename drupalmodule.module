@@ -14,12 +14,12 @@ function drupalmodule_block_view($delta) {
 
 	switch ($delta){
 		case 'Quotable':
-			$quotation1 = variable_get('mei_core_quotable-quote1');
-			$attribution1 = variable_get('mei_core_quotable-att1');
+			$quotation = variable_get('mei_core_quotable-quote');
+			$attribution = variable_get('mei_core_quotable-att');
 			$block['subject'] = t('Quotable quotes');
 			//Javascript goes in 'content', I would think.
-			drupal_add_js('rotator.js');
-			$block['content'] =
+			//drupal_add_js('rotator.js');
+			$block['content'] = $quotation
 			break;
 		default:
 			break;
