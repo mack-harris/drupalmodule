@@ -52,7 +52,7 @@ function drupalmodule_block_view($delta) {
 function drupalmodule_block_configure($delta){	
 	$form = array();
 	switch($delta){
-		case "myquote":
+		case 'myquote':
 			$default_text = ' ';
 			$form['#tree'] = TRUE;
 			$form['quotable'] = array(
@@ -96,47 +96,20 @@ function drupalmodule_block_configure($delta){
 //Implements hook_block_save()
 
 function drupalmodule_block_save($delta, $edits = array()) {
-	if($delta == 'myquote'){
-		if(isset($edits)){
-		//do some validation and set global variables in the db
+	switch($delta) {
+		case 'myquote':
+			if(isset($edits) ){
+			//this should set some global variables in the DB.
 			if(isset($edits['quotable']['q'])){
 				variable_set('deep_thoughts', $edits['quotable']['q']);
 			}
 			if(isset($edits['quotable']['a'])){
-				variable_set('author', $edits['quotable']['a']);
+				$attribution = $edits['attribution'];
+				variable_set('author', $attribution);
 			}
-				/**$attribution = $edits['attribution1'];
-				if(isset($edits['reference']) && !empty($edits['reference'])) {
-					check for existing link
-					$test = strpos($attribution, '<');
-					strip old link
-					if ($test != FALSE) {
-						$attribution = strstr($attribution, '<', 'before_needle');
-					}
-					load the node and get the title to prep the link on save, rather than view 
-					$node = node_load($edits['reference']);
-					$link = l($node->title, 'node/' . $node->nid);
-					$attribution .= " " . $link;
-					variable_set('mei_core_quotable-nid', $edits['reference']);
-					} else {
-						variable_del('mei_core_quotable-nid');
-					}
-					variable_set('mei_core_quotable-att', $attribution);
-				}
-			}
-			if(isset($edits['quotation2'])){
-				variable_set('mei_core_quotable-quote2', $edits['quotation2']);
-			}
-			if(isset($edits['attribution2'])){
-				variable_set('mei_core_quotable-att2', $edits['attribution2']);
-			}
-			if(isset($edits['quotation3'])){
-				variable_set('mei_core_quotable-quote3', $edits['quotation3']);
-			}
-			if(isset($edits['attribution3'])){
-				variable_set('mei_core_quotable-att3', $edits['attribution3']);
-			}*/
-		}
+		break;
+		default:
+		break;
 	}
 }
 
