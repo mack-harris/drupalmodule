@@ -50,6 +50,7 @@ function drupalmodule_block_view($delta) {
 }*/
 
 function drupalmodule_block_configure($delta) {
+	
 	$form = array();
 	switch($delta){
 		case 'myquote':
@@ -66,7 +67,7 @@ function drupalmodule_block_configure($delta) {
 					'#description' => t('Enter your quote.'),
 					'#size' => 100,
 					'#maxlength' => 200,
-					'#default_value' => variable_get('deep_thoughts'),
+					'#default_value' => t('Text goes here.'),
 				),
 	
 				$form['quotable']['a'] = array(
@@ -75,7 +76,7 @@ function drupalmodule_block_configure($delta) {
 					'#description' => t('Enter your attribution.'),
 					'#size' => 100,
 					'#maxlength' => 200,
-					'#default_value' => variable_get('author'),
+					'#default_value' => t('text goes here.'),
 				),
 			);
 		default:
