@@ -93,7 +93,7 @@ function drupalmodule_block_configure($delta){
 
 //Implements hook_block_save()
 
-function drupalmodule_block_save($delta, $edits = array()) {
+function drupalmodule_block_save($delta, $edits = $form()) {
 	if($delta == 'myquote'){
 		if(isset($edits)){
 		//do some validation and set global variables in the db
