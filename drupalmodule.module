@@ -79,7 +79,7 @@ function drupalmodule_block_configure($delta) {
 			);
 		default:
 		break;
-	return $form;
+	return $form['quotable'];
 
 	}
 }
