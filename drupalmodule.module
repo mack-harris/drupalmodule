@@ -67,7 +67,7 @@ function drupalmodule_block_configure($delta) {
 					'#size' => 100,
 					'#maxlength' => 200,
 					'#default_value' => variable_get('mei_core_quotable-quote')
-				);
+				),
 	
 				$form['quotable']['a'] = array(
 					'#type' => 'textfield',
@@ -76,7 +76,7 @@ function drupalmodule_block_configure($delta) {
 					'#size' => 100,
 					'#maxlength' => 200,
 					'#default_value' => variable_get('mei_core_quotable-att');
-				);
+				),
 			);
 		default:
 		break;
