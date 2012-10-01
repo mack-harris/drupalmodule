@@ -95,12 +95,12 @@ function drupalmodule_block_configure($delta){
 
 function drupalmodule_block_save($delta, $edits = array()) {
 	if($delta == 'myquote'){
-		if(isset($edits) ){
+		if(isset($edits)){
 		//do some validation and set global variables in the db
 			if(isset($edits['quotable']['q'])){
 				variable_set('deep_thoughts', $edits['quotable']['q']);
 			}
-			if(isset($edits['attribution']['a'])){
+			if(isset($edits['quotable']['a'])){
 				variable_set('author', $edits['quotable']['a']);
 			}
 				/**$attribution = $edits['attribution1'];
