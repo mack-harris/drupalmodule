@@ -67,7 +67,7 @@ function drupalmodule_block_configure($delta){
 					'#description' => t('Enter your quote.'),
 					'#size' => 100,
 					'#maxlength' => 200,
-					'#default_value' => t('Text goes here.'),
+					'#default_value' => variable_get('deep_thoughts'),
 				),
 	
 				$form['quotable']['a'] = array(
@@ -76,7 +76,7 @@ function drupalmodule_block_configure($delta){
 					'#description' => t('Enter your attribution.'),
 					'#size' => 100,
 					'#maxlength' => 200,
-					'#default_value' => t('text goes here.'),
+					'#default_value' => variable_get('author'),
 				),
 			);
 		default:
