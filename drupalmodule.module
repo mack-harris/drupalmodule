@@ -1,39 +1,90 @@
 <?php
 
+function drupalmodule_block_info()
+	$blocks ['Quotable'] = array(
+		'info' => t('Displays a quote rotator.'),
+		'cache' => DRUPAL_CACHE_PER_ROLE,
+		);
 
-
-function drupalmodule_block_info() {
-	 $blocks ['quoterotator'] = array(
-	 	 'info' => t('Quote Rotator'),
-		 'cache' => DRUPAL_CACHE_PER_ROLE,
-		 );
-		 
 	return $blocks;
 }
 
 function drupalmodule_block_view($delta) {
-	 $block = array();
+	$block = array();
 
-	 switch ($delta){
-	 	case 'quoterotator':
-		     $block['subject'] = t('Quote of the Day');
-		     $block['content'] = t('Hello World!');
-		     break;
-	        default:
-		     break;
-	}
-       return $block;
+	switch ($delta){
+		case 'Quotable':
+			$quote = variable_get('mei_core_quotable-quote');
+			$block['subject'] = t('Quotable quotes');
+			$block['content'] = t($quote);
+			break;
+		default:
+			break;
+		}
+	return $block;
 }
 
-function drupalmodule_block_configure($delta) {
+function drupalmodule_block_configure($delta){
 	$form = array();
-	$form['quote1'] = array(
-	'#type' => 'text',
-	'#quote1_text' => t('Quote 1'),
-	'#quote1_attribution' => t('Attribution 1')
-	'#default_value' = t('Quote goes here.')
-);
-return $form;
+	switch ($delta) {
+		case 'Quotable':
+			$default_text = '';
+			$form['quotation'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Quotation'),
+				'#description' => t('Enter the main text for the quote.'),
+				'#size' => 100,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-quote', $default_text),
+				'#requite' => TRUE,
+				);
+			$form['attribution'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Attribution'),
+				'#description' => t('Enter the text for the attribution.'),
+				'#size' => 60,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-att', $default_text), 
+				'#required' => TRUE,
+			);
+
+		default:
+		break;
+		}
+	return $form;
 }
 
-	 	
+//Implements hook_block_save()
+
+function drupalmodule_block_save($delta, $edits = array()){
+	if($delta == 'Quotable'){
+		if(isset($edits) ){
+		//do some validation and set global variables in the db
+			if(isset($edits['quotation'])){
+				variable_set('mei_core_quotable-quote', $edits['quotation']);
+			}
+			if(isset($edits['attribution'])){
+				$attribution = $edits['attribution'];
+				if(isset($edits['reference']) && !empty($edits['reference'])) {
+					//check for existing link
+					$test = strpos($attribution, '<');
+					//strip old link
+					if ($test != FALSE) {
+						$attribution = strstr($attribution, '<', 'before_needle');
+					}
+					//load the node and get the title to prep the link on save, rather than view 
+					$node = node_load($edits['reference']);
+					$link = l($node->title, 'node/' . $node->nid);
+					$attribution .= " " . $link;
+					variable_set('mei_core_quotable-nid', $edits['reference']);
+					} else {
+						variable_del('mei_core_quotable-nid');
+					}
+					variable_set('mei_core_quotable-att', $attribution);
+				}
+			}
+		}
+	}
+}
+					
+
