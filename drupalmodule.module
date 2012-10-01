@@ -80,9 +80,9 @@ function drupalmodule_block_configure($delta){
 					'#required' => TRUE,
 				),
 			);
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 	return $form;
 }
@@ -101,12 +101,14 @@ function drupalmodule_block_save($delta, $edits = array()) {
 			if(isset($edits)){
 			//this should set some global variables in the DB.
 				if(isset($edits['quotable'])){
-					variable_set('deep_thoughts', $edits['quotable']);
+					variable_set('deep_thoughts', $edits['quotable']['q']);
+					variable_set('author', $edits['quotable']['a']);
 				}
+
 			}
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 }
 
