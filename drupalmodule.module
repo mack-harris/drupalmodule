@@ -1,6 +1,6 @@
 <?php
 
-function drupalmodule_block_info()
+function drupalmodule_block_info() {
 	$blocks ['Quotable'] = array(
 		'info' => t('Displays a quote rotator.'),
 		'cache' => DRUPAL_CACHE_PER_ROLE,
@@ -16,7 +16,7 @@ function drupalmodule_block_view($delta) {
 		case 'Quotable':
 			$quote = variable_get('mei_core_quotable-quote');
 			$block['subject'] = t('Quotable quotes');
-			$block['content'] = t($quote);
+			$block['content'] = t($quotation1, $attribution1);
 			break;
 		default:
 			break;
