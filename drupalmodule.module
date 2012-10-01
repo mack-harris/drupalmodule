@@ -1,208 +1,218 @@
 <?php
 
 function drupalmodule_block_info() {
-	$blocks ['myquote'] = array(
-		'info' => t('Quote Rotator'),
-		'cache' => DRUPAL_CACHE_PER_ROLE,
-		);
+$blocks ['myquote'] = array(
+'info' => t('Displays a quote rotator.'),
+'cache' => DRUPAL_CACHE_PER_ROLE,
+);
 
-	return $blocks;
+return $blocks;
 }
 
 function drupalmodule_block_view($delta) {
-	$block = array();
+$block = array();
 
-	switch ($delta){
-		case 'myquote':
-			$quotation = variable_get('deep_thoughts');
-			$attribution = variable_get('author');
-			$block['subject'] = t('myquote quotes');
-			//Javascript goes in 'content', I would think.
-			//drupal_add_js('rotator.js');
-			$block['content'] = t($quotation);
-			break;
-		default:
-			break;
-	}
-	return $block;
+switch ($delta){
+case 'myquote':
+$quotation = variable_get('deep_thoughts');
+$attribution = variable_get('author');
+$block['subject'] = t('Quotable quotes');
+//Javascript goes in 'content', I would think.
+//drupal_add_js('rotator.js');
+$block['content'] = $quotation,
+break;
+default:
+break;
+}
+return $block;
 }
 
 /**function drupalmodule_block_configure($delta) {
-	$form = array;
-	switch ($delta) {
-		case 'myquote':
-			$default_text = '';
-			$form['quotation1'] = array(
-				'#type' => 'textfield',
-		‎		'#title' => t('Quotation 1'),
-				'#description' => t('Enter the text of your first quote.'),
-				'#size' => 100,
-				'#maxlength' => 200,
-				'#default_value' => variable_get('mei_core_quotable-quote1', $default_text),
-				'#required' => TRUE,
-			);
+$form = array;
+switch ($delta) {
+case 'Quotable':
+$default_text = '';
+$form['quotation1'] = array(
+'#type' => 'textfield',
+‎ '#title' => t('Quotation 1'),
+'#description' => t('Enter the text of your first quote.'),
+'#size' => 100,
+'#maxlength' => 200,
+'#default_value' => variable_get('mei_core_quotable-quote1', $default_text),
+'#required' => TRUE,
+);
 
 
-		default:
-		break;
-		}
-	return $form;
+default:
+break;
+}
+return $form;
 }*/
 
-function drupalmodule_block_configure($delta){	
-	$form = array();
-	switch($delta){
-		case 'myquote':
-			$default_text = ' ';
-			$form['#tree'] = TRUE;
-			$quotes = array(
-				'#type' => 'fieldset',
-				'#title' => t('Quotation and attribution array'),
-				'#collapsible' => FALSE,
-				$form['quote'] = array(
-					'#type' => 'textfield',
-					'#title' => t('Quote'),
-					'#description' => t('Enter your quote.'),
-					'#size' => 100,
-					'#maxlength' => 200,
-					'#default_value' => variable_get('deep_thoughts', $default_text),
-					'#required' => TRUE,
-				),
-				$form['attrib'] = array(
-					'#type' => 'textfield',
-					'#title' => t('Attribution'),
-					'#description' => t('Enter your author.'),
-					'#size' => 100,
-					'#default_value' => variable_get('author', $default_text),
-					'#required' =>TRUE,
-				),
-			
-				/*$form['quotable']['q'] = array(
-					'#type' => 'textfield',
-					'#title' => t('Quote'),
-					'#description' => t('Enter your quote.'),
-					'#size' => 100,
-					'#maxlength' => 200,
-					'#default_value' => variable_get('deep_thoughts', $default_text),
-					'#required' =>TRUE,
-				),
-	
-				$form['quotable']['a'] = array(
-					'#type' => 'textfield',
-					'#title' => t('Attribution'),
-					'#description' => t('Enter your attribution.'),
-					'#size' => 100,
-					'#maxlength' => 200,
-					'#default_value' => variable_get('author', $default_text),
-					'#required' => TRUE,
-				),*/
-			);
-			break;
-		default:
-			break;
-	}
-	return $form;
+function drupalmodule_block_configure($delta) {
+$form = array();
+switch($delta){
+case 'myquote':
+$form['#tree'] = TRUE;
+$form['quotable'] = array(
+'#type' => 'fieldset',
+'#title' => t('Quotable'),
+'#collapsible' => FALSE,
+
+
+$form['quotable']['q'] = array(
+'#type' => 'textfield',
+'#title' => t('Quote'),
+'#description' => t('Enter your quote.'),
+'#size' => 100,
+'#maxlength' => 200,
+'#default_value' => variable_get('deep_thoughts'),
+),
+
+$form['quotable']['a'] = array(
+'#type' => 'textfield',
+'#title' => t('Attribution'),
+'#description' => t('Enter your attribution.'),
+'#size' => 100,
+'#maxlength' => 200,
+'#default_value' => variable_get('author'),
+),
+);
+default:
+break;
+return $form;
+
 }
-	
+}
 
 
 
-		
+
+
 
 
 //Implements hook_block_save()
 
-function drupalmodule_block_save($delta, $edits = array()){
-	switch($delta) {
-		case 'myquote':
-			variable_set('deep_thoughts', $edits['quote']);
-			variable_set('author', $edits['attrib']);
-		default:
-			break;
-	}
+function drupalmodule_block_save($delta, $edits = array()) {
+if($delta == 'myquote'){
+if(isset($edits) ){
+//do some validation and set global variables in the db
+if(isset($edits['quotable']['q'])){
+variable_set('deep_thoughts', $edits['quotation']);
+}
+if(isset($edits['attribution']['a'])){
+variable_set('author', $edits['attribution']);
+}
+/**$attribution = $edits['attribution1'];
+if(isset($edits['reference']) && !empty($edits['reference'])) {
+check for existing link
+$test = strpos($attribution, '<');
+strip old link
+if ($test != FALSE) {
+$attribution = strstr($attribution, '<', 'before_needle');
+}
+load the node and get the title to prep the link on save, rather than view
+$node = node_load($edits['reference']);
+$link = l($node->title, 'node/' . $node->nid);
+$attribution .= " " . $link;
+variable_set('mei_core_quotable-nid', $edits['reference']);
+} else {
+variable_del('mei_core_quotable-nid');
+}
+variable_set('mei_core_quotable-att', $attribution);
+}
+}
+if(isset($edits['quotation2'])){
+variable_set('mei_core_quotable-quote2', $edits['quotation2']);
+}
+if(isset($edits['attribution2'])){
+variable_set('mei_core_quotable-att2', $edits['attribution2']);
+}
+if(isset($edits['quotation3'])){
+variable_set('mei_core_quotable-quote3', $edits['quotation3']);
+}
+if(isset($edits['attribution3'])){
+variable_set('mei_core_quotable-att3', $edits['attribution3']);
+}*/
+}
+}
 }
 
 
 /** function drupal_add_js('rotator.js'){
-  $javascript = &drupal_static(__FUNCTION__, array());
+$javascript = &drupal_static(__FUNCTION__, array());
 
-  // Construct the options, taking the defaults into consideration.
-  if (isset($options)) {
-    if (!is_array($options)) {
-      $options = array('type' => $options);
-    }
-  }
-  else {
-    $options = array();
-  }
-  $options += drupal_js_defaults($data);
+// Construct the options, taking the defaults into consideration.
+if (isset($options)) {
+if (!is_array($options)) {
+$options = array('type' => $options);
+}
+}
+else {
+$options = array();
+}
+$options += drupal_js_defaults($data);
 
-  // Preprocess can only be set if caching is enabled.
-  $options['preprocess'] = $options['cache'] ? $options['preprocess'] : FALSE;
+// Preprocess can only be set if caching is enabled.
+$options['preprocess'] = $options['cache'] ? $options['preprocess'] : FALSE;
 
-  // Tweak the weight so that files of the same weight are included in the
-  // order of the calls to drupal_add_js().
-  $options['weight'] += count($javascript) / 1000;
+// Tweak the weight so that files of the same weight are included in the
+// order of the calls to drupal_add_js().
+$options['weight'] += count($javascript) / 1000;
 
-  if (isset($data)) {
-    // Add jquery.js and drupal.js, as well as the basePath setting, the
-    // first time a JavaScript file is added.
-    if (empty($javascript)) {
-      // url() generates the prefix using hook_url_outbound_alter(). Instead of
-      // running the hook_url_outbound_alter() again here, extract the prefix
-      // from url().
-      url('', array('prefix' => &$prefix));
-      $javascript = array(
-        'settings' => array(
-          'data' => array(
-            array('basePath' => base_path()),
-            array('pathPrefix' => empty($prefix) ? '' : $prefix),
-          ), 
-          'type' => 'setting', 
-          'scope' => 'header', 
-          'group' => JS_LIBRARY, 
-          'every_page' => TRUE, 
-          'weight' => 0,
-        ), 
-        'misc/drupal.js' => array(
-          'data' => 'misc/drupal.js', 
-          'type' => 'file', 
-          'scope' => 'header', 
-          'group' => JS_LIBRARY, 
-          'every_page' => TRUE, 
-          'weight' => -1, 
-          'preprocess' => TRUE, 
-          'cache' => TRUE, 
-          'defer' => FALSE,
-        ),
-      );
-      // Register all required libraries.
-      drupal_add_library('system', 'jquery', TRUE);
-      drupal_add_library('system', 'jquery.once', TRUE);
-    }
+if (isset($data)) {
+// Add jquery.js and drupal.js, as well as the basePath setting, the
+// first time a JavaScript file is added.
+if (empty($javascript)) {
+// url() generates the prefix using hook_url_outbound_alter(). Instead of
+// running the hook_url_outbound_alter() again here, extract the prefix
+// from url().
+url('', array('prefix' => &$prefix));
+$javascript = array(
+'settings' => array(
+'data' => array(
+array('basePath' => base_path()),
+array('pathPrefix' => empty($prefix) ? '' : $prefix),
+),
+'type' => 'setting',
+'scope' => 'header',
+'group' => JS_LIBRARY,
+'every_page' => TRUE,
+'weight' => 0,
+),
+'misc/drupal.js' => array(
+'data' => 'misc/drupal.js',
+'type' => 'file',
+'scope' => 'header',
+'group' => JS_LIBRARY,
+'every_page' => TRUE,
+'weight' => -1,
+'preprocess' => TRUE,
+'cache' => TRUE,
+'defer' => FALSE,
+),
+);
+// Register all required libraries.
+drupal_add_library('system', 'jquery', TRUE);
+drupal_add_library('system', 'jquery.once', TRUE);
+}
 
-    switch ($options['type']) {
-      case 'setting':
-        // All JavaScript settings are placed in the header of the page with
-        // the library weight so that inline scripts appear afterwards.
-        $javascript['settings']['data'][] = $data;
-        break;
+switch ($options['type']) {
+case 'setting':
+// All JavaScript settings are placed in the header of the page with
+// the library weight so that inline scripts appear afterwards.
+$javascript['settings']['data'][] = $data;
+break;
 
-      case 'inline':
-        $javascript[] = $options;
-        break;
+case 'inline':
+$javascript[] = $options;
+break;
 
-      default: // 'file' and 'external'
-        // Local and external files must keep their name as the associative key
-        // so the same JavaScript file is not added twice.
-        $javascript[$options['data']] = $options;
-    }
-  }
-  return $javascript;
+default: // 'file' and 'external'
+// Local and external files must keep their name as the associative key
+// so the same JavaScript file is not added twice.
+$javascript[$options['data']] = $options;
+}
+}
+return $javascript;
 }*/
-
-
-
-
-					
-
