@@ -55,7 +55,7 @@ function drupalmodule_block_configure($delta){
 		case 'myquote':
 			$default_text = ' ';
 			$form['#tree'] = TRUE;
-			$form['quotable'] = array(
+			$quotes = array(
 				'#type' => 'fieldset',
 				'#title' => t('Quotation and attribution array'),
 				'#collapsible' => FALSE,
