@@ -19,7 +19,7 @@ function drupalmodule_block_view($delta) {
 			$block['subject'] = t('myquote quotes');
 			//Javascript goes in 'content', I would think.
 			//drupal_add_js('rotator.js');
-			$block['content'] = $quotation;
+			$block['content'] = t($quotation);
 			break;
 		default:
 			break;
@@ -49,11 +49,11 @@ function drupalmodule_block_view($delta) {
 	return $form;
 }*/
 
-function drupalmodule_block_configure($delta) {
-	
+function drupalmodule_block_configure($delta){	
 	$form = array();
 	switch($delta){
 		case 'myquote':
+			$default_text = ' ';
 			$form['#tree'] = TRUE;
 			$form['quotable'] = array(
 				'#type' => 'fieldset',
@@ -81,9 +81,8 @@ function drupalmodule_block_configure($delta) {
 			);
 		default:
 		break;
-	return $form;
-
 	}
+	return $form;
 }
 	
 
