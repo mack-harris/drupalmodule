@@ -3,8 +3,8 @@
 
 
 function drupalmodule_block_info() {
-	 $blocks ['helloworld'] = array(
-	 	 'info' => t('Hello World!'),
+	 $blocks ['quoterotator'] = array(
+	 	 'info' => t('Quote Rotator'),
 		 'cache' => DRUPAL_CACHE_PER_ROLE,
 		 );
 		 
@@ -15,13 +15,25 @@ function drupalmodule_block_view($delta) {
 	 $block = array();
 
 	 switch ($delta){
-	 	case 'helloworld':
-		     $block['subject'] = t('Hello');
+	 	case 'quoterotator':
+		     $block['subject'] = t('Quote of the Day');
 		     $block['content'] = t('Hello World!');
 		     break;
 	        default:
 		     break;
 	}
        return $block;
-} 
+}
+
+function drupalmodule_block_configure($delta) {
+	$form = array();
+	$form['quote1'] = array(
+	'#type' => 'text',
+	'#quote1_text' => t('Quote 1'),
+	'#quote1_attribution' => t('Attribution 1')
+	'#default_value' = t('Quote goes here.')
+);
+return $form;
+}
+
 	 	
