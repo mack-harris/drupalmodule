@@ -71,9 +71,9 @@ function drupalmodule_block_configure($delta){
 				$form['attrib'] = array(
 					'#type' => 'textfield',
 					'#title' => t('Attribution'),
-					'#description' => t('Enter your quote.'),
+					'#description' => t('Enter your author.'),
 					'#size' => 100,
-					'#default_value' => variable_get('deep_thoughts', $default_text),
+					'#default_value' => variable_get('author', $default_text),
 					'#required' =>TRUE,
 				),
 			
