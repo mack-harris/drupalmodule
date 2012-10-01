@@ -100,12 +100,13 @@ function drupalmodule_block_save($delta, $edits = array()) {
 		case 'myquote':
 			if(isset($edits) ){
 			//this should set some global variables in the DB.
-			if(isset($edits['quotable']['q'])){
-				variable_set('deep_thoughts', $edits['quotable']['q']);
-			}
-			if(isset($edits['quotable']['a'])){
-				$attribution = $edits['attribution'];
-				variable_set('author', $attribution);
+				if(isset($edits['quotable']['q'])){
+					variable_set('deep_thoughts', $edits['quotable']['q']);
+				}
+				if(isset($edits['quotable']['a'])){
+					$attribution = $edits['attribution'];
+					variable_set('author', $attribution);
+				}
 			}
 		break;
 		default:
