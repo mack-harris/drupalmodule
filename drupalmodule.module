@@ -29,24 +29,61 @@ function drupalmodule_block_configure($delta){
 	switch ($delta) {
 		case 'Quotable':
 			$default_text = '';
-			$form['quotation'] = array(
+			$form['quotation1'] = array(
 				'#type' => 'textfield',
-				'#title' => t('Quotation'),
-				'#description' => t('Enter the main text for the quote.'),
+				'#title' => t('Quotation 1'),
+				'#description' => t('Enter the text of your first quote.'),
 				'#size' => 100,
 				'#maxlength' => 200,
-				'#default_value' => variable_get('mei_core_quotable-quote', $default_text),
-				'#requite' => TRUE,
-				);
-			$form['attribution'] = array(
-				'#type' => 'textfield',
-				'#title' => t('Attribution'),
-				'#description' => t('Enter the text for the attribution.'),
-				'#size' => 60,
-				'#maxlength' => 200,
-				'#default_value' => variable_get('mei_core_quotable-att', $default_text), 
+				'#default_value' => variable_get('mei_core_quotable-quote1', $default_text),
 				'#required' => TRUE,
 			);
+			$form['attribution'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Attribution 1'),
+				'#description' => t('Attribute your first quote.'),
+				'#size' => 60,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-att1', $default_text), 
+				'#required' => TRUE,
+			);
+			$form['quotation2'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Quotation 2'),
+				'#description' => t('Enter the text of your second quote.'),
+				'#size' => 100,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-quote2', $default_text),
+				'#required' => TRUE,
+			);
+			$form['attribution2'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Attribution'),
+				'#description' => t('Attribute your second quote.'),
+				'#size' => 60,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-att2', $default_text), 
+				'#required' => TRUE,
+			);
+			$form['quotation3'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Quotation 3'),
+				'#description' => t('Enter the text of your third quote.'),
+				'#size' => 100,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-quote3', $default_text),
+				'#required' => TRUE,
+			);
+			$form['attribution3'] = array(
+				'#type' => 'textfield',
+				'#title' => t('Attribution 3'),
+				'#description' => t('Attribute your third quote.'),
+				'#size' => 60,
+				'#maxlength' => 200,
+				'#default_value' => variable_get('mei_core_quotable-att3', $default_text), 
+				'#required' => TRUE,
+			);
+
 
 		default:
 		break;
@@ -60,28 +97,41 @@ function drupalmodule_block_save($delta, $edits = array()){
 	if($delta == 'Quotable'){
 		if(isset($edits) ){
 		//do some validation and set global variables in the db
-			if(isset($edits['quotation'])){
-				variable_set('mei_core_quotable-quote', $edits['quotation']);
+			if(isset($edits['quotation1'])){
+				variable_set('mei_core_quotable-quote1', $edits['quotation1']);
 			}
-			if(isset($edits['attribution'])){
-				$attribution = $edits['attribution'];
-				if(isset($edits['reference']) && !empty($edits['reference'])) {
+			if(isset($edits['attribution1'])){
+				variable_set('mei_core_quotable-att1', $edits['attribution1']);
+				//$attribution = $edits['attribution1'];
+				//if(isset($edits['reference']) && !empty($edits['reference'])) {
 					//check for existing link
-					$test = strpos($attribution, '<');
+					//$test = strpos($attribution, '<');
 					//strip old link
-					if ($test != FALSE) {
-						$attribution = strstr($attribution, '<', 'before_needle');
-					}
+					//if ($test != FALSE) {
+						//$attribution = strstr($attribution, '<', 'before_needle');
+					//}
 					//load the node and get the title to prep the link on save, rather than view 
-					$node = node_load($edits['reference']);
-					$link = l($node->title, 'node/' . $node->nid);
-					$attribution .= " " . $link;
-					variable_set('mei_core_quotable-nid', $edits['reference']);
-					} else {
-						variable_del('mei_core_quotable-nid');
-					}
-					variable_set('mei_core_quotable-att', $attribution);
-				}
+					//$node = node_load($edits['reference']);
+					//$link = l($node->title, 'node/' . $node->nid);
+					//$attribution .= " " . $link;
+					//variable_set('mei_core_quotable-nid', $edits['reference']);
+					//} else {
+						//variable_del('mei_core_quotable-nid');
+					//}
+					//variable_set('mei_core_quotable-att', $attribution);
+				//}
+			}
+			if(isset($edits['quotation2'])){
+				variable_set('mei_core_quotable-quote2', $edits['quotation2']);
+			}
+			if(isset($edits['attribution2'])){
+				variable_set('mei_core_quotable-att2', $edits['attribution2']);
+			}
+			if(isset($edits['quotation3'])){
+				variable_set('mei_core_quotable-quote3', $edits['quotation3']);
+			}
+			if(isset($edits['attribution3'])){
+				variable_set('mei_core_quotable-att3', $edits['attribution3']);
 			}
 		}
 	}
