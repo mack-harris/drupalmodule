@@ -115,8 +115,8 @@ function drupalmodule_block_configure($delta){
 function drupalmodule_block_save($delta, $edits = array()){
 	switch($delta) {
 		case 'myquote':
-			variable_set('deep_thoughts', $edits['quotable']['quote']);
-			variable_set('author', $edits['author']['attrib']);
+			variable_set('deep_thoughts', $edits['quote']);
+			variable_set('author', $edits['attrib']);
 		default:
 			break;
 	}
