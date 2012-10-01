@@ -2,7 +2,7 @@
 
 function drupalmodule_block_info() {
 	$blocks ['myquote'] = array(
-		'info' => t('Displays a quote rotator.'),
+		'info' => t('Quote Rotator'),
 		'cache' => DRUPAL_CACHE_PER_ROLE,
 		);
 
@@ -19,7 +19,7 @@ function drupalmodule_block_view($delta) {
 			$block['subject'] = t('Quotable quotes');
 			//Javascript goes in 'content', I would think.
 			//drupal_add_js('rotator.js');
-			$block['content'] = $quotation,
+			$block['content'] = $quotation;
 			break;
 		default:
 			break;
